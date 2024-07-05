@@ -19,6 +19,7 @@
 
   <!-- Módulos de los microservicios -->
   <modules>
+    <module>microservice-config</module>
   </modules>
 
   <properties>
