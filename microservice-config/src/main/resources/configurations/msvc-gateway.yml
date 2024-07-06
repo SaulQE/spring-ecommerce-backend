@@ -1,0 +1,20 @@
+eureka:
+  client:
+    register-with-eureka: false
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: msvc-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: products
+          uri: http://localhost:9091
+          predicates:
+            - Path=/api/student/**
