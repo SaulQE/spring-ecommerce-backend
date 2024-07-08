@@ -18,8 +18,8 @@ public class Product
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
     private String name;
-    private String description;
+    private String descriptionShort;
+    private String descriptionLong;
     private Double price;
-    private Integer quantity;
 
 }
