@@ -26,7 +26,7 @@ public class InventoryController
     {
         Inventory inventoryDb = inventoryService.findById(inventoryId);
         if (inventoryDb != null){
-            newInventory.setProductId(inventoryId);
+            newInventory.setInventoryId(inventoryId);
             inventoryService.update(newInventory);
             return new ResponseEntity<>(HttpStatus.OK);
         }
