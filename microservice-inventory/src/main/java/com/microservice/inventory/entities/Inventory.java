@@ -1,4 +1,4 @@
-package com.microservice.product.entities;
+package com.microservice.inventory.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,17 +9,17 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Builder
-@Table(name = "products")
+@Table(name = "inventories")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product
+public class Inventory
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long inventoryId;
+    private Integer quantity;
+
+    @Column(name = "product_id")
     private Long productId;
-    private String name;
-    private String descriptionShort;
-    private String descriptionLong;
-    private Double price;
 
 }

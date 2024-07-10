@@ -1,6 +1,7 @@
 package com.microservice.product.service;
 
 import com.microservice.product.entities.Product;
+import com.microservice.product.http.response.InventoryByProductResponse;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ public interface IProductService
     void update(Product product);
     void delete(Long productId);
     Product findById(Long productId);
+    InventoryByProductResponse findInventoriesByProductId(Long productId);
 }

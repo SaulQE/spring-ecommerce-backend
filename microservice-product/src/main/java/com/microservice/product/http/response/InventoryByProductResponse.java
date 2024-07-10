@@ -1,25 +1,22 @@
-package com.microservice.product.entities;
+package com.microservice.product.http.response;
 
-import jakarta.persistence.*;
+import com.microservice.product.controller.dto.InventoryDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
-@Entity
-@Builder
-@Table(name = "products")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product
+@Builder
+public class InventoryByProductResponse
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
     private String name;
     private String descriptionShort;
     private String descriptionLong;
     private Double price;
-
+    private List<InventoryDTO> inventoryDTOList;
 }
