@@ -56,4 +56,10 @@ public class InventoryController
         return ResponseEntity.ok(inventoryService.findById(inventoryId));
     }
 
+    @GetMapping("/search-by-product/{productId}")
+    public ResponseEntity<?> findAllProductById(@PathVariable Long productId)
+    {
+        return ResponseEntity.ok(inventoryService.findAllProduct(productId));
+    }
+
 }

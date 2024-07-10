@@ -43,4 +43,10 @@ public class InventoryServiceImpl implements IInventoryService
     public Inventory findById(Long inventoryId) {
         return inventoryRepository.findById(inventoryId).orElse(null);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Inventory> findAllProduct(Long productId) {
+        return inventoryRepository.findAllProduct(productId);
+    }
 }

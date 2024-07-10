@@ -11,4 +11,5 @@ public interface IInventoryService
     void update(Inventory inventory);
     void delete(Long inventoryId);
     Inventory findById(Long inventoryId);
+    List<Inventory> findAllProduct(Long productId);
 }
