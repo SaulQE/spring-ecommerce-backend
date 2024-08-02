@@ -35,3 +35,7 @@ spring:
           uri: http://localhost:9092
           predicates:
             - Path=/api/inventory/**
+        - id: categories
+          uri: http://localhost:9093
+          predicates:
+            - Path=/api/category/**
