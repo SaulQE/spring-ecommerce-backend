@@ -24,6 +24,7 @@
     <module>microservice-gateway</module>
     <module>microservice-product</module>
     <module>microservice-inventory</module>
+    <module>microservice-category</module>
   </modules>
 
   <properties>
