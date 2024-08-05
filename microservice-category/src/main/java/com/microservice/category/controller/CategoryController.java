@@ -55,7 +55,11 @@ public class CategoryController
     @GetMapping("/search/{categoryId}")
     public ResponseEntity<?> findById(@PathVariable Long categoryId)
     {
-        return ResponseEntity.ok(categoryService.findById(categoryId));
+        Category categoryDb = categoryService.findById(categoryId);
+        if (categoryDb != null){
+            return ResponseEntity.ok(categoryDb);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
 }
