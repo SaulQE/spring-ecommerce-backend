@@ -53,13 +53,23 @@ public class ProductController
     @GetMapping("/search/{productId}")
     public ResponseEntity<?> findById(@PathVariable Long productId)
     {
-        return ResponseEntity.ok(productService.findById(productId));
+        Product productDb = productService.findById(productId);
+        if (productDb != null){
+            return ResponseEntity.ok(productDb);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/product-with-inventory/{productId}")
     public ResponseEntity<?> findInventoriesByProductId(@PathVariable Long productId)
     {
         return ResponseEntity.ok(productService.findInventoriesByProductId(productId));
+    }
+
+    @GetMapping("/product-with-category/{productId}")
+    public ResponseEntity<?> findProductWithCategory(@PathVariable Long productId)
+    {
+        return ResponseEntity.ok(productService.findProductWithCategory(productId));
     }
 
 }
