@@ -18,5 +18,6 @@ public class InventoryByProductResponse
     private String descriptionShort;
     private String descriptionLong;
     private Double price;
+    private Long categoryId;
     private List<InventoryDTO> inventoryDTOList;
 }
