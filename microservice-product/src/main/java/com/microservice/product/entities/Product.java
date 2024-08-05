@@ -21,5 +21,6 @@ public class Product
     private String descriptionShort;
     private String descriptionLong;
     private Double price;
+    private Long categoryId;
 
 }
