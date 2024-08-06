@@ -72,4 +72,10 @@ public class ProductController
         return ResponseEntity.ok(productService.findProductWithCategory(productId));
     }
 
+    @GetMapping("/product-with-details/{productId}")
+    public ResponseEntity<?> findProductWithDetails(@PathVariable Long productId)
+    {
+        return ResponseEntity.ok(productService.findProductWithDetails(productId));
+    }
+
 }

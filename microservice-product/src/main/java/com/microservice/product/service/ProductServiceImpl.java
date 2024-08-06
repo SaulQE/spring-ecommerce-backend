@@ -7,6 +7,7 @@ import com.microservice.product.controller.dto.InventoryDTO;
 import com.microservice.product.entities.Product;
 import com.microservice.product.http.response.InventoryByProductResponse;
 import com.microservice.product.http.response.ProductWithCategoryResponse;
+import com.microservice.product.http.response.ProductWithDetailsResponse;
 import com.microservice.product.repository.ProductRepository;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +95,24 @@ public class ProductServiceImpl implements IProductService {
                 .descriptionLong(product.getDescriptionLong())
                 .price(product.getPrice())
                 .categoryDTO(categoryDTO)
+                .build();
+    }
+
+    @Override
+    public ProductWithDetailsResponse findProductWithDetails(Long productId)
+    {
+        Product product = productRepository.findById(productId).orElse(new Product());
+        CategoryDTO categoryDTO = categoryClient.getCategoryById(product.getCategoryId());
+        List<InventoryDTO> inventoryDTOList = inventoryClient.findAllInventoryByProductId(productId);
+
+        return ProductWithDetailsResponse.builder()
+                .productId(product.getProductId())
+                .name(product.getName())
+                .descriptionShort(product.getDescriptionShort())
+                .descriptionLong(product.getDescriptionLong())
+                .price(product.getPrice())
+                .categoryDTO(categoryDTO)
+                .inventoryDTOList(inventoryDTOList)
                 .build();
     }
 }
