@@ -8,6 +8,7 @@ import com.microservice.product.entities.Product;
 import com.microservice.product.http.response.InventoryByProductResponse;
 import com.microservice.product.http.response.ProductWithCategoryResponse;
 import com.microservice.product.repository.ProductRepository;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements IProductService
-{
+public class ProductServiceImpl implements IProductService {
     @Autowired
     private ProductRepository productRepository;
 
@@ -58,8 +58,7 @@ public class ProductServiceImpl implements IProductService
 
     @Override
     @Transactional(readOnly = true)
-    public InventoryByProductResponse findInventoriesByProductId(Long productId)
-    {
+    public InventoryByProductResponse findInventoriesByProductId(Long productId) {
         // Consultar el producto
         Product product = productRepository.findById(productId).orElse(new Product());
 
@@ -77,10 +76,16 @@ public class ProductServiceImpl implements IProductService
 
     @Override
     @Transactional(readOnly = true)
-    public ProductWithCategoryResponse findProductWithCategory(Long productId)
-    {
+    public ProductWithCategoryResponse findProductWithCategory(Long productId) {
         Product product = productRepository.findById(productId).orElse(new Product());
-        CategoryDTO categoryDTO = categoryClient.getCategoryById(product.getCategoryId());
+
+        CategoryDTO categoryDTO = null;
+        try {
+            if (product.getCategoryId() != null) {
+                categoryDTO = categoryClient.getCategoryById(product.getCategoryId());
+            }
+        }catch (FeignException.NotFound ignored){
+        }
 
         return ProductWithCategoryResponse.builder()
                 .productId(product.getProductId())
