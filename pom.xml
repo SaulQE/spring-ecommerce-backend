@@ -25,6 +25,7 @@
     <module>microservice-product</module>
     <module>microservice-inventory</module>
     <module>microservice-category</module>
+    <module>microservice-image</module>
   </modules>
 
   <properties>
