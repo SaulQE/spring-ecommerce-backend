@@ -39,3 +39,7 @@ spring:
           uri: http://localhost:9093
           predicates:
             - Path=/api/category/**
+        - id: images
+          uri: http://localhost:9094
+          predicates:
+            - Path=/api/image/**
