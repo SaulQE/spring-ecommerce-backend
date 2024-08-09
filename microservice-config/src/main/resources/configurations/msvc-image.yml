@@ -14,10 +14,6 @@ spring:
       ddl-auto: update
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
-  cloudinary:
-    cloud_name: ${CLOUDINARY_CLOUD_NAME}
-    api_key: ${CLOUDINARY_API_KEY}
-    api_secret: ${CLOUDINARY_API_SECRET}
 
 eureka:
   instance:
