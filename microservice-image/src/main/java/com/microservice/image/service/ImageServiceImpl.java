@@ -21,11 +21,12 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional
-    public Image uploadImage(MultipartFile file) throws Exception {
+    public Image uploadImage(MultipartFile file, Long productId) throws Exception {
         Map uploadResult = cloudinaryService.upload(file);
         String imageUrl = (String) uploadResult.get("url");
         String imagePublicId = (String) uploadResult.get("public_id");
         Image image = new Image(file.getOriginalFilename(), imageUrl, imagePublicId);
+        image.setProductId(productId);
 
         return imageRepository.save(image);
     }
@@ -51,15 +52,26 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional
-    public Image updateImage(Long imageId, MultipartFile file) throws Exception {
+    public Image updateImage(Long imageId, MultipartFile file, Long productId) throws Exception {
         Image imageDb = imageRepository.findById(imageId).orElse(null);
 
-        cloudinaryService.delete(imageDb.getPublicId());
-        Map uploadResult = cloudinaryService.upload(file);
+        if (imageDb == null) {
+            throw new Exception("La imagen con ID " + imageId + " no fue encontrada.");
+        }
 
-        imageDb.setImageUrl((String) uploadResult.get("url"));
-        imageDb.setPublicId((String) uploadResult.get("public_id"));
-        imageDb.setName(file.getOriginalFilename());
+        // Si se proporciona un nuevo archivo, actualiza la imagen en Cloudinary
+        if (file != null && !file.isEmpty()) {
+            cloudinaryService.delete(imageDb.getPublicId());
+            Map uploadResult = cloudinaryService.upload(file);
+
+            imageDb.setImageUrl((String) uploadResult.get("url"));
+            imageDb.setPublicId((String) uploadResult.get("public_id"));
+            imageDb.setName(file.getOriginalFilename());
+        }
+
+        if (productId != null) {
+            imageDb.setProductId(productId);
+        }
 
         return imageRepository.save(imageDb);
     }
