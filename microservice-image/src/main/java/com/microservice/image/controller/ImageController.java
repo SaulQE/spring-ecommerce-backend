@@ -18,9 +18,11 @@ public class ImageController
     private ImageService imageService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file,
+                                         @RequestParam("productId") Long productId)
+    {
         try {
-            Image image = imageService.uploadImage(file);
+            Image image = imageService.uploadImage(file, productId);
             return new ResponseEntity<>(image, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -28,11 +30,13 @@ public class ImageController
     }
 
     @PutMapping("/update/{imageId}")
-    public ResponseEntity<?> updateImage(@PathVariable Long imageId, @RequestParam("file") MultipartFile file)
+    public ResponseEntity<?> updateImage(@PathVariable Long imageId,
+                                         @RequestParam(value = "file", required = false) MultipartFile file,
+                                         @RequestParam(value = "productId", required = false) Long productId)
     {
         try {
-            Image image = imageService.updateImage(imageId, file);
-            return new ResponseEntity<>(image, HttpStatus.CREATED);
+            Image image = imageService.updateImage(imageId, file, productId);
+            return new ResponseEntity<>(image, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
