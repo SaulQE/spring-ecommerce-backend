@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface ImageService
 {
-    Image uploadImage(MultipartFile file) throws Exception;
+    Image uploadImage(MultipartFile file, Long productId) throws Exception;
     void deleteImage(Image image) throws Exception;
-    Image updateImage(Long imageId, MultipartFile file) throws Exception;
+    Image updateImage(Long imageId, MultipartFile file, Long productId) throws Exception;
     Image findById(Long imageId);
     List<Image> findAll();
 }
